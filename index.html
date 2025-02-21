@@ -38,9 +38,14 @@
     <div id="timestamp"></div>
 
     <script>
-        async function fetchWeatherStatus() {
+async function fetchWeatherStatus() {
     try {
-        const response = await fetch(`https://is-it-raining-backend-seven.vercel.app/status?nocache=${new Date().getTime()}`);
+        const response = await fetch('https://is-it-raining-backend-seven.vercel.app/status', {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
         const data = await response.json();
         
         document.getElementById('status').innerText = data.raining ? "YES" : "NO";
@@ -50,6 +55,7 @@
         document.getElementById('timestamp').innerText = "";
     }
 }
+
         fetchWeatherStatus();
         setInterval(fetchWeatherStatus, 60000);
     </script>
